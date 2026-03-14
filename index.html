@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sliding Panel Project</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f2ee;color:#333;min-height:100vh}
+  header{background:#7a8c7e;color:#fff;padding:16px 20px;text-align:center}
+  header h1{font-size:18px;font-weight:600;letter-spacing:.5px}
+  header p{font-size:12px;opacity:.8;margin-top:4px}
+  nav{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid #e0dbd4;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  nav button{flex-shrink:0;padding:12px 18px;border:none;background:none;font-size:13px;color:#777;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .2s}
+  nav button.active{color:#7a8c7e;border-bottom-color:#7a8c7e;font-weight:600}
+  main{padding:16px;max-width:800px;margin:0 auto}
+  .tab{display:none}.tab.active{display:block}
+  svg.diagram{width:100%;border:1px solid #ddd;border-radius:8px;background:#fff;display:block}
+  .caption{font-size:11px;color:#888;text-align:center;margin-top:6px;padding:0 8px}
+  .warning{background:#fff5f5;border:1px solid #fcc;border-radius:6px;padding:10px 14px;font-size:12px;color:#c0392b;margin-bottom:16px}
+  .section-title{font-size:13px;font-weight:700;color:#fff;padding:8px 14px;border-radius:6px 6px 0 0;margin-top:20px}
+  .eq{background:#7a8c7e}.mat{background:#a07860}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th{text-align:left;padding:8px 10px;background:#f0ece6;color:#666;font-weight:600}
+  td{padding:8px 10px;border-bottom:1px solid #eee;vertical-align:top}
+  tr:nth-child(even) td{background:#faf9f7}
+  td:first-child{font-weight:500;color:#333;width:38%}
+  td:last-child{width:36px;text-align:center}
+  input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:#7a8c7e}
+  .note-text{color:#666}
+  .progress{background:#e8e4e0;border-radius:20px;height:8px;margin:12px 0 4px}
+  .progress-bar{height:8px;border-radius:20px;background:#7a8c7e;transition:width .4s ease}
+  .progress-label{font-size:11px;color:#888;text-align:right}
+  .tab-label{font-size:11px;color:#888;margin-bottom:12px;padding:8px 12px;background:#fff;border-radius:6px;border:1px solid #e8e4e0}
+  @media(max-width:480px){
+    td:first-child{width:45%}
+    nav button{padding:10px 14px;font-size:12px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Sliding Panel Project</h1>
+  <p>Bathroom Washer/Dryer — 4 Panel System</p>
+</header>
+<nav>
+  <button class="active" onclick="showTab('overview')">Overview</button>
+  <button onclick="showTab('construction')">Construction</button>
+  <button onclick="showTab('magnet')">Magnet Detail</button>
+  <button onclick="showTab('hanging')">Hanging Detail</button>
+  <button onclick="showTab('lists')">Lists</button>
+</nav>
+<main>
+
+<!-- OVERVIEW -->
+<div id="overview" class="tab active">
+  <div class="tab-label">Rail extends left into alcove stack zone. Panels open across full doorway width (~72"). Stack to left (washer side) away from dryer door swing.</div>
+  <svg class="diagram" viewBox="0 0 520 310">
+    <rect x="0" y="0" width="520" height="310" fill="#f0ece6"/>
+    <!-- alcove walls -->
+    <rect x="108" y="28" width="10" height="240" fill="#ddd"/>
+    <rect x="398" y="28" width="10" height="240" fill="#ddd"/>
+    <!-- rail -->
+    <rect x="22" y="44" width="460" height="9" fill="#aaa" rx="2"/>
+    <text x="22" y="40" font-size="9" fill="#888">← rail extends left for stacking (~18")</text>
+    <!-- carriers -->
+    <rect x="130" y="44" width="14" height="10" fill="#888" rx="2"/>
+    <rect x="202" y="44" width="14" height="10" fill="#888" rx="2"/>
+    <rect x="274" y="44" width="14" height="10" fill="#888" rx="2"/>
+    <rect x="346" y="44" width="14" height="10" fill="#888" rx="2"/>
+    <!-- panels -->
+    <rect x="116" y="54" width="70" height="170" fill="#7a8c7e" opacity=".65" rx="1"/>
+    <rect x="188" y="54" width="70" height="170" fill="#7a8c7e" opacity=".65" rx="1"/>
+    <rect x="260" y="54" width="70" height="170" fill="#7a8c7e" opacity=".65" rx="1"/>
+    <rect x="332" y="54" width="70" height="170" fill="#7a8c7e" opacity=".65" rx="1"/>
+    <!-- panel labels -->
+    <text x="151" y="142" font-size="11" fill="#fff" text-anchor="middle">P1</text>
+    <text x="223" y="142" font-size="11" fill="#fff" text-anchor="middle">P2</text>
+    <text x="295" y="142" font-size="11" fill="#fff" text-anchor="middle">P3</text>
+    <text x="367" y="142" font-size="11" fill="#fff" text-anchor="middle">P4</text>
+    <!-- stitch lines -->
+    <line x1="116" y1="68" x2="186" y2="68" stroke="#5a6c5e" stroke-width="1" stroke-dasharray="3,2"/>
+    <line x1="188" y1="68" x2="258" y2="68" stroke="#5a6c5e" stroke-width="1" stroke-dasharray="3,2"/>
+    <line x1="260" y1="68" x2="330" y2="68" stroke="#5a6c5e" stroke-width="1" stroke-dasharray="3,2"/>
+    <line x1="332" y1="68" x2="402" y2="68" stroke="#5a6c5e" stroke-width="1" stroke-dasharray="3,2"/>
+    <line x1="116" y1="210" x2="186" y2="210" stroke="#5a6c5e" stroke-width="1" stroke-dasharray="3,2"/>
+    <line x1="188" y1="210" x2="258" y2="210" stroke="#5a6c5e" stroke-width="1" stroke-dasharray="3,2"/>
+    <line x1="260" y1="210" x2="330" y2="210" stroke="#5a6c5e" stroke-width="1" stroke-dasharray="3,2"/>
+    <line x1="332" y1="210" x2="402" y2="210" stroke="#5a6c5e" stroke-width="1" stroke-dasharray="3,2"/>
+    <!-- stack zone arrow -->
+    <text x="65" y="100" font-size="9" fill="#c0392b" text-anchor="middle">← stack zone</text>
+    <text x="65" y="112" font-size="9" fill="#c0392b" text-anchor="middle">(washer side)</text>
+    <!-- floor labels -->
+    <text x="140" y="248" font-size="9" fill="#888" text-anchor="middle">↑ Washer</text>
+    <text x="140" y="258" font-size="9" fill="#888" text-anchor="middle">(top load)</text>
+    <text x="360" y="248" font-size="9" fill="#888" text-anchor="middle">↑ Dryer</text>
+    <text x="360" y="258" font-size="9" fill="#888" text-anchor="middle">(opens →)</text>
+    <!-- trim labels -->
+    <text x="113" y="275" font-size="8" fill="#999" text-anchor="middle">trim</text>
+    <text x="403" y="275" font-size="8" fill="#999" text-anchor="middle">trim</text>
+    <!-- bottom label -->
+    <text x="260" y="296" font-size="10" fill="#666" text-anchor="middle">OPEN POSITION — 4 panels across ~72" opening</text>
+  </svg>
+  <p class="caption">Rail total length ≈ 90". Panels ≈ 15–18" each depending on measured opening.</p>
+</div>
+
+<!-- CONSTRUCTION -->
+<div id="construction" class="tab">
+  <div class="tab-label">Single piece of linen folded at top. Uniform topstitch on all 4 sides. Two aluminum+steel bar assemblies inside top and bottom channels.</div>
+  <svg class="diagram" viewBox="0 0 400 430">
+    <!-- panel body -->
+    <rect x="80" y="34" width="240" height="362" fill="#7a8c7e" opacity=".13" stroke="#7a8c7e" stroke-width="1.5"/>
+    <!-- top fold -->
+    <line x1="80" y1="34" x2="320" y2="34" stroke="#333" stroke-width="2.5"/>
+    <text x="200" y="26" font-size="10" fill="#333" text-anchor="middle" font-weight="bold">FOLD — no raw edge</text>
+    <!-- top channel -->
+    <rect x="80" y="34" width="240" height="24" fill="#a0b0a4" opacity=".35"/>
+    <!-- aluminum bar top -->
+    <rect x="106" y="38" width="156" height="7" fill="#b0b8c1" rx="1"/>
+    <text x="184" y="44" font-size="7.5" fill="#555" text-anchor="middle">aluminum bar ~12"</text>
+    <!-- steel bar top -->
+    <rect x="88" y="38" width="18" height="7" fill="#7f8c8d" rx="1"/>
+    <text x="97" y="44" font-size="7" fill="#fff" text-anchor="middle">steel</text>
+    <!-- top topstitch -->
+    <line x1="80" y1="58" x2="320" y2="58" stroke="#5a6c5e" stroke-width="1.2" stroke-dasharray="4,3"/>
+    <text x="328" y="61" font-size="8.5" fill="#5a6c5e">topstitch</text>
+    <!-- eyelet -->
+    <circle cx="200" cy="46" r="5" fill="#fff" stroke="#b8960c" stroke-width="1.5"/>
+    <text x="200" y="30" font-size="7.5" fill="#b8960c" text-anchor="middle">↓ eyelet (brass)</text>
+    <!-- magnets top -->
+    <rect x="82" y="38" width="8" height="7" fill="#e74c3c" rx="1"/>
+    <text x="72" y="43" font-size="7.5" fill="#e74c3c" text-anchor="end">mag</text>
+    <!-- side hems -->
+    <rect x="80" y="34" width="16" height="362" fill="#a0b0a4" opacity=".25"/>
+    <rect x="304" y="34" width="16" height="362" fill="#a0b0a4" opacity=".25"/>
+    <line x1="96" y1="34" x2="96" y2="396" stroke="#5a6c5e" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="304" y1="34" x2="304" y2="396" stroke="#5a6c5e" stroke-width="1" stroke-dasharray="4,3"/>
+    <!-- side labels -->
+    <text x="46" y="214" font-size="8.5" fill="#5a6c5e" text-anchor="middle">fold +</text>
+    <text x="46" y="224" font-size="8.5" fill="#5a6c5e" text-anchor="middle">topstitch</text>
+    <!-- fabric label -->
+    <text x="200" y="220" font-size="11" fill="#5a6c5e" text-anchor="middle" font-style="italic">linen — double layer</text>
+    <text x="200" y="235" font-size="10" fill="#999" text-anchor="middle">single piece folded at top</text>
+    <text x="200" y="250" font-size="9" fill="#aaa" text-anchor="middle">warp threads run vertically</text>
+    <!-- bottom topstitch -->
+    <line x1="80" y1="372" x2="320" y2="372" stroke="#5a6c5e" stroke-width="1.2" stroke-dasharray="4,3"/>
+    <text x="328" y="375" font-size="8.5" fill="#5a6c5e">topstitch</text>
+    <!-- bottom channel -->
+    <rect x="80" y="372" width="240" height="24" fill="#a0b0a4" opacity=".35"/>
+    <!-- aluminum bar bottom -->
+    <rect x="106" y="376" width="156" height="7" fill="#b0b8c1" rx="1"/>
+    <text x="184" y="382" font-size="7.5" fill="#555" text-anchor="middle">aluminum bar ~12" (weight)</text>
+    <!-- steel bar bottom -->
+    <rect x="88" y="376" width="18" height="7" fill="#7f8c8d" rx="1"/>
+    <text x="97" y="382" font-size="7" fill="#fff" text-anchor="middle">steel</text>
+    <!-- magnets bottom -->
+    <rect x="82" y="376" width="8" height="7" fill="#e74c3c" rx="1"/>
+    <!-- raw edge bottom -->
+    <line x1="80" y1="396" x2="320" y2="396" stroke="#333" stroke-width="2"/>
+    <text x="200" y="412" font-size="10" fill="#444" text-anchor="middle">bottom raw edge — folded inside channel</text>
+    <!-- uniform label -->
+    <text x="200" y="15" font-size="9" fill="#888" text-anchor="middle">uniform topstitch · straight stitch 3–3.5mm · 16/100 needle</text>
+  </svg>
+  <p class="caption">Sew vertical sides first, then top and bottom channels so corners lock cleanly.</p>
+</div>
+
+<!-- MAGNET -->
+<div id="magnet" class="tab">
+  <div class="tab-label">Half-inch overlap between adjacent panels. Neodymium magnet on trailing panel's steel bar attracts to steel bar on leading panel. Top and bottom at each joint.</div>
+  <svg class="diagram" viewBox="0 0 400 310">
+    <!-- Panel 1 -->
+    <rect x="50" y="44" width="140" height="222" fill="#7a8c7e" opacity=".2" stroke="#7a8c7e" stroke-width="1.5"/>
+    <text x="120" y="162" font-size="11" fill="#5a6c5e" text-anchor="middle">Panel 1</text>
+    <!-- Panel 2 -->
+    <rect x="184" y="44" width="140" height="222" fill="#7a8c7e" opacity=".38" stroke="#7a8c7e" stroke-width="1.5"/>
+    <text x="254" y="162" font-size="11" fill="#5a6c5e" text-anchor="middle">Panel 2</text>
+    <!-- overlap zone -->
+    <rect x="184" y="44" width="6" height="222" fill="#c0392b" opacity=".12"/>
+    <line x1="187" y1="32" x2="187" y2="278" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+    <text x="187" y="30" font-size="8.5" fill="#c0392b" text-anchor="middle">½" overlap</text>
+    <!-- Top bars -->
+    <rect x="58" y="50" width="124" height="8" fill="#b0b8c1" stroke="#999" stroke-width=".8" rx="1"/>
+    <rect x="190" y="50" width="124" height="8" fill="#b0b8c1" stroke="#999" stroke-width=".8" rx="1"/>
+    <!-- Steel end P1 top -->
+    <rect x="162" y="50" width="20" height="8" fill="#7f8c8d" rx="1"/>
+    <text x="172" y="47" font-size="7.5" fill="#555" text-anchor="middle">steel</text>
+    <!-- Magnet P2 top -->
+    <rect x="190" y="51" width="14" height="6" fill="#e74c3c" rx="1"/>
+    <text x="197" y="47" font-size="7.5" fill="#e74c3c" text-anchor="middle">mag</text>
+    <!-- attraction arrow top -->
+    <line x1="182" y1="54" x2="190" y2="54" stroke="#e74c3c" stroke-width="1.5"/>
+    <polygon points="186,51 190,54 186,57" fill="#e74c3c"/>
+    <!-- Bottom bars -->
+    <rect x="58" y="254" width="124" height="8" fill="#b0b8c1" stroke="#999" stroke-width=".8" rx="1"/>
+    <rect x="190" y="254" width="124" height="8" fill="#b0b8c1" stroke="#999" stroke-width=".8" rx="1"/>
+    <!-- Steel end P1 bottom -->
+    <rect x="162" y="254" width="20" height="8" fill="#7f8c8d" rx="1"/>
+    <!-- Magnet P2 bottom -->
+    <rect x="190" y="255" width="14" height="6" fill="#e74c3c" rx="1"/>
+    <!-- fold back note -->
+    <text x="50" y="285" font-size="8" fill="#aaa" text-anchor="middle">fold</text>
+    <text x="50" y="293" font-size="8" fill="#aaa" text-anchor="middle">back</text>
+    <!-- bar labels -->
+    <text x="120" y="46" font-size="8" fill="#888" text-anchor="middle">alum.</text>
+    <text x="254" y="46" font-size="8" fill="#888" text-anchor="middle">alum.</text>
+    <!-- bottom label -->
+    <text x="200" y="298" font-size="9.5" fill="#555" text-anchor="middle">Magnet (P2 leading edge) → Steel (P1 trailing edge)</text>
+    <text x="200" y="310" font-size="9" fill="#888" text-anchor="middle">Repeat at top + bottom for each of 3 panel joints (6 magnets total)</text>
+    <!-- title -->
+    <text x="200" y="18" font-size="11" fill="#333" text-anchor="middle" font-weight="bold">Leading Edge — Closed Position</text>
+  </svg>
+  <p class="caption">All bars same profile: ¾" × ⅛". Steel and aluminum butted end-to-end inside channel — no epoxy needed between them.</p>
+</div>
+
+<!-- HANGING -->
+<div id="hanging" class="tab">
+  <div class="tab-label">Carrier pin drops through drilled hole in aluminum top bar. Washer-back eyelet set through both fabric layers and bar hole simultaneously — structural and decorative.</div>
+  <svg class="diagram" viewBox="0 0 400 380">
+    <text x="200" y="18" font-size="11" fill="#333" text-anchor="middle" font-weight="bold">Hanging Detail — Carrier to Top Bar</text>
+    <!-- rail -->
+    <rect x="60" y="30" width="280" height="14" fill="#aaa" rx="2"/>
+    <text x="346" y="40" font-size="8.5" fill="#777">rail</text>
+    <!-- carrier -->
+    <rect x="174" y="30" width="52" height="12" fill="#888" rx="2"/>
+    <text x="200" y="39" font-size="8" fill="#fff" text-anchor="middle">carrier</text>
+    <!-- carrier pin -->
+    <rect x="196" y="42" width="8" height="22" fill="#666" rx="2"/>
+    <text x="214" y="57" font-size="8.5" fill="#555">carrier pin</text>
+    <!-- fabric channel top layer -->
+    <rect x="90" y="64" width="220" height="6" fill="#7a8c7e" opacity=".55"/>
+    <!-- aluminum bar -->
+    <rect x="90" y="70" width="220" height="9" fill="#b0b8c1" stroke="#999" stroke-width="1" rx="1"/>
+    <text x="200" y="77" font-size="8" fill="#555" text-anchor="middle">aluminum flat bar ¾" × ⅛"</text>
+    <!-- steel section -->
+    <rect x="90" y="70" width="36" height="9" fill="#7f8c8d" rx="1"/>
+    <text x="108" y="77" font-size="7" fill="#fff" text-anchor="middle">steel</text>
+    <!-- fabric channel bottom layer -->
+    <rect x="90" y="79" width="220" height="6" fill="#7a8c7e" opacity=".55"/>
+    <!-- topstitch -->
+    <line x1="90" y1="85" x2="310" y2="85" stroke="#5a6c5e" stroke-width="1.2" stroke-dasharray="4,3"/>
+    <text x="316" y="88" font-size="8" fill="#5a6c5e">topstitch</text>
+    <!-- eyelet -->
+    <circle cx="200" cy="72" r="5.5" fill="#fff" stroke="#b8960c" stroke-width="2"/>
+    <circle cx="200" cy="72" r="2.5" fill="#b8960c"/>
+    <text x="226" y="68" font-size="8" fill="#b8960c">brass eyelet</text>
+    <!-- panel fabric -->
+    <rect x="90" y="85" width="220" height="150" fill="#7a8c7e" opacity=".14" stroke="#7a8c7e" stroke-width="1"/>
+    <text x="200" y="165" font-size="10.5" fill="#5a6c5e" text-anchor="middle">panel fabric (double linen)</text>
+    <!-- magnet label -->
+    <rect x="90" y="70" width="10" height="9" fill="#e74c3c" rx="1"/>
+    <text x="82" y="77" font-size="7.5" fill="#e74c3c" text-anchor="end">mag</text>
+    <!-- divider -->
+    <line x1="40" y1="248" x2="360" y2="248" stroke="#eee" stroke-width="1.5"/>
+    <!-- cross section -->
+    <text x="200" y="268" font-size="10.5" fill="#333" text-anchor="middle" font-weight="bold">Bar End — Cross Section</text>
+    <rect x="148" y="278" width="104" height="13" fill="#b0b8c1" stroke="#888" stroke-width="1.5" rx="1"/>
+    <!-- eyelet in cross section -->
+    <circle cx="200" cy="284" r="5" fill="#fff" stroke="#b8960c" stroke-width="1.8"/>
+    <circle cx="200" cy="284" r="2" fill="#b8960c"/>
+    <!-- fabric wrap -->
+    <rect x="143" y="274" width="114" height="4" fill="#7a8c7e" opacity=".6"/>
+    <rect x="143" y="291" width="114" height="4" fill="#7a8c7e" opacity=".6"/>
+    <!-- magnet at end cross section -->
+    <rect x="143" y="278" width="8" height="13" fill="#e74c3c" rx="1"/>
+    <text x="137" y="288" font-size="7.5" fill="#e74c3c" text-anchor="end">mag</text>
+    <!-- notes -->
+    <text x="200" y="316" font-size="9" fill="#888" text-anchor="middle">Drill hole centered — sized to carrier pin diameter (measure first)</text>
+    <text x="200" y="329" font-size="9" fill="#888" text-anchor="middle">Drill → deburr → test fit → sew channel → set eyelet last</text>
+    <text x="200" y="348" font-size="9" fill="#c0392b" text-anchor="middle">⚠ Drill bar BEFORE sewing into channel</text>
+    <text x="200" y="362" font-size="9" fill="#c0392b" text-anchor="middle">⚠ Use waterproof epoxy for magnets (bathroom humidity)</text>
+  </svg>
+  <p class="caption">Washer-back eyelet locks through fabric + bar simultaneously — structural and a considered design detail.</p>
+</div>
+
+<!-- LISTS -->
+<div id="lists" class="tab">
+  <div class="warning">⚠ Measure opening and confirm carrier pin diameter before purchasing rail, eyelets, or cutting any fabric.</div>
+
+  <div id="progress-wrap">
+    <div class="progress"><div class="progress-bar" id="prog-bar" style="width:0%"></div></div>
+    <div class="progress-label" id="prog-label">0 of 0 checked</div>
+  </div>
+
+  <div class="section-title eq">Equipment</div>
+  <table id="eq-table">
+    <thead><tr><th>Item</th><th>Note</th><th>✓</th></tr></thead>
+    <tbody id="eq-body"></tbody>
+  </table>
+
+  <div class="section-title mat" style="margin-top:20px">Components &amp; Materials</div>
+  <table id="mat-table">
+    <thead><tr><th>Item</th><th>Note</th><th>✓</th></tr></thead>
+    <tbody id="mat-body"></tbody>
+  </table>
+  <p style="font-size:11px;color:#aaa;text-align:center;margin-top:16px">Checks saved automatically</p>
+</div>
+
+</main>
+
+<script>
+const equipment=[
+  {id:"eq1",item:"Singer 4423 sewing machine",note:"You have this — straight stitch, 3–3.5mm length"},
+  {id:"eq2",item:"Denim needle 16/100 or 18/110",note:"2–3 pack — essential for double layer heavy linen"},
+  {id:"eq3",item:"100% polyester thread (grey-green)",note:"Humidity resistant — nearly invisible on topstitch"},
+  {id:"eq4",item:"Iron & ironing board",note:"Press at every step, not just at start"},
+  {id:"eq5",item:"Cutting mat & rotary cutter",note:"For clean straight cuts on linen"},
+  {id:"eq6",item:"Long metal ruler / straight edge",note:"Minimum 24\" for marking and cutting"},
+  {id:"eq7",item:"Fabric marking pen or chalk",note:"Disappearing ink preferred on grey-green linen"},
+  {id:"eq8",item:"Wonder clips (~20)",note:"Better than pins on doubled heavy linen"},
+  {id:"eq9",item:"Seam ripper",note:"Always"},
+  {id:"eq10",item:"Eyelet setter or arbor press",note:"Hand setter minimum — arbor press preferred on aluminum"},
+  {id:"eq11",item:"Drill + bits sized to carrier pin",note:"Measure carrier pin diameter before drilling (3–6mm typical)"},
+  {id:"eq12",item:"Metal file or deburring tool",note:"Smooth all cut bar ends before fabric contact"},
+  {id:"eq13",item:"Hacksaw or miter saw",note:"For cutting aluminum and steel flat bar to length"},
+  {id:"eq14",item:"Tape measure",note:"Measure opening before purchasing anything"},
+  {id:"eq15",item:"Level",note:"Critical for rail install — error multiplies across 4 panels"},
+  {id:"eq16",item:"Stud finder",note:"Locate studs in alcove wall before mounting rail"},
+];
+
+const materials=[
+  {id:"mat1",item:"Grey-green linen fabric",note:"4 panels × ~18\" wide × ~166\" long (double height + hems) — buy 5+ yards extra for test panel and error"},
+  {id:"mat2",item:"Matching polyester thread",note:"1–2 spools — 4 panels × 4 sides of topstitch"},
+  {id:"mat3",item:"Panel track rail",note:"~90\" total — opening width (~72\") + ~18\" stack zone left side"},
+  {id:"mat4",item:"Sliding carriers (4×)",note:"Confirm pin diameter before purchasing eyelets"},
+  {id:"mat5",item:"Aluminum flat bar ¾\" × ⅛\"",note:"8 pieces × ~12\" each — 2 per panel, cut from longer stock"},
+  {id:"mat6",item:"Steel flat bar ¾\" × ⅛\"",note:"8 pieces × 3–5\" each — trailing end of each bar, same profile as aluminum"},
+  {id:"mat7",item:"Washer-back eyelets (4×)",note:"1 per panel at top bar carrier hole — brass or matte silver"},
+  {id:"mat8",item:"Neodymium flat bar magnets (6×)",note:"Top + bottom corners at each of 3 panel joints"},
+  {id:"mat9",item:"Waterproof epoxy",note:"Adhering magnets to steel bar ends only — waterproof for bathroom humidity"},
+  {id:"mat10",item:"Rail mounting screws",note:"Sized to stud or wall anchor — confirm after stud find"},
+  {id:"mat11",item:"Wall anchors",note:"If studs don't align with rail mount points"},
+  {id:"mat12",item:"Muslin or cheap fabric",note:"1 full test panel — confirm channel math and eyelet placement before cutting linen"},
+];
+
+function buildTable(data,bodyId){
+  const tbody=document.getElementById(bodyId);
+  data.forEach(r=>{
+    const checked=localStorage.getItem(r.id)==="1";
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td>${r.item}</td><td class="note-text">${r.note}</td><td><input type="checkbox" id="${r.id}" ${checked?"checked":""}></td>`;
+    tbody.appendChild(tr);
+    tr.querySelector("input").addEventListener("change",e=>{
+      localStorage.setItem(r.id,e.target.checked?"1":"0");
+      updateProgress();
+    });
+  });
+}
+
+function updateProgress(){
+  const all=[...equipment,...materials];
+  const total=all.length;
+  const done=all.filter(r=>localStorage.getItem(r.id)==="1").length;
+  const pct=Math.round(done/total*100);
+  document.getElementById("prog-bar").style.width=pct+"%";
+  document.getElementById("prog-label").textContent=`${done} of ${total} checked`;
+}
+
+function showTab(id){
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  event.target.classList.add("active");
+}
+
+buildTable(equipment,"eq-body");
+buildTable(materials,"mat-body");
+updateProgress();
+</script>
+</body>
+</html>
